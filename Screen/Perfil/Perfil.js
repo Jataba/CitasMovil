@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
-  Image, 
-  TouchableOpacity, 
-  Alert,
-  ActivityIndicator 
-} from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {View, Text, StyleSheet, ActivityIndicator, Alert } from "react-native"
+import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import BottonComponent from "../../components/BottonComponent";
 import api from "../../Src/Servicios/conexion";
 import { LogoutUser } from "../../Src/Servicios/AuthService";
 
-export default function Perfil() {
+
+export default function Perfil (){
     const [usuario, setUsuario] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -38,7 +29,7 @@ export default function Perfil() {
                     console.log("Error de autenticacion manejado por interceptor, redirigiendo automaticamente...");
                     return;
                 }
-                if (error.response) {
+                if (error.respone) {
                     console.log("Error response:", error.response.status, error.response.data);
                     Alert.alert(
                         "Error del servidor",
@@ -89,10 +80,6 @@ export default function Perfil() {
         cargarPerfil();
     }, []);
 
-    const handleEditProfile = () => {
-        Alert.alert('Editar Perfil', 'Funcionalidad de edición de perfil');
-    };
-
     if (loading) {
         return (
             <View style={styles.loadingContainer}>
@@ -103,202 +90,52 @@ export default function Perfil() {
 
     if (!usuario) {
         return (
-            <ScrollView style={styles.container}>
-                <View style={styles.errorContainer}>
-                    <Text style={styles.title}>Perfil de Usuario</Text>
-                    <View style={styles.ContainerPerfil}>
-                        <Text style={styles.errorText}>
-                            No se pudo cargar la informacion del perfil.
-                        </Text>
-                        <BottonComponent
-                            title="Cerrar Sesión"
-                            onPress={async () => {
-                                await LogoutUser();
-                                // el appNavegacion se encargara de redirigir automaticamente
-                            }}
-                        />
-                    </View>
+            <View style={styles.errorContainer}>
+                <Text style={styles.title}>Perfil de Usuario</Text>
+                <View style={styles.ContainerPerfil}>
+                    <Text style={styles.errorText}>
+                        No se pudo cargar la informacion del perfil.
+                    </Text>
                 </View>
-            </ScrollView>
+            </View>
         );
     }
 
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.profileHeader}>
-                <Image 
-                    source={usuario.user.image ? { uri: usuario.user.image } : require('../../assets/12.jpg')} 
-                    style={styles.avatar}
-                />
-                <Text style={styles.userName}>{usuario.user.name || "Usuario"}</Text>
-                <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
-                    <Ionicons name="create-outline" size={20} color="#fff" />
-                    <Text style={styles.editButtonText}>Editar Perfil</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.infoSection}>
-                <Text style={styles.sectionTitle}>Información de Contacto</Text>
-                <View style={styles.infoItem}>
-                    <Ionicons name="mail-outline" size={20} color="#555" style={styles.infoIcon} />
-                    <Text style={styles.infoText}>{usuario.user.email || "No disponible"}</Text>
-                </View>
-                <View style={styles.infoItem}>
-                    <Ionicons name="call-outline" size={20} color="#555" style={styles.infoIcon} />
-                    <Text style={styles.infoText}>{usuario.user.phone || "No disponible"}</Text>
-                </View>
-            </View>
-
-            <View style={styles.infoSection}>
-                <Text style={styles.sectionTitle}>Detalles de la Cuenta</Text>
-                <View style={styles.infoItem}>
-                    <Ionicons name="calendar-outline" size={20} color="#555" style={styles.infoIcon} />
-                    <Text style={styles.infoText}>
-                        Miembro desde: {usuario.user.createdAt ? new Date(usuario.user.createdAt).toLocaleDateString() : "Fecha no disponible"}
-                    </Text>
-                </View>
-            </View>
-
-            <TouchableOpacity 
-                style={styles.actionButton} 
-                onPress={() => Alert.alert('Ver Citas', 'Navegar a historial de citas.')}
-            >
-                <Ionicons name="clipboard-outline" size={22} color="#fff" style={styles.actionButtonIcon} />
-                <Text style={styles.actionButtonText}>Ver Mis Citas</Text>
-            </TouchableOpacity>
-
-            <BottonComponent
+        <View style={styles.container}>
+            <Text style={styles.title}>Perfil de Usuario</Text>
+            <View style={styles.ContainerPerfil}>
+                <Text style={styles.prtofileText}>Nombre: {usuario.user.name || "No disponible"}</Text>
+                <Text style={styles.prtofileText}>Email: {usuario.user.email || "No disponible"}</Text>
+                <BottonComponent title="Editar Perfil" onPress={() => {}}/>
+                <BottonComponent
                 title="Cerrar Sesión"
                 onPress={async () => {
-                    await LogoutUser();
-                    // el appNavegacion se encargara de redirigir automaticamente
+                await LogoutUser();
+                   // el appNavegacion se encargara de redirigir automaticamente
                 }}
-                style={styles.logoutButton}
             />
-            
-            <View style={{ height: 20 }} />
-        </ScrollView>
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0f2f5',
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#f0f0f0",
     },
     loadingContainer: {
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
-    errorContainer: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 20,
-    },
-    profileHeader: {
-        backgroundColor: '#1976d2',
-        padding: 20,
-        alignItems: 'center',
-        paddingTop: 50,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-        marginBottom: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
-        shadowRadius: 5,
-        elevation: 8,
-    },
-    avatar: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        borderWidth: 4,
-        borderColor: '#fff',
-        marginBottom: 15,
-    },
-    userName: {
+    title: {
         fontSize: 24,
-        fontWeight: 'bold',
-        color: '#fff',
-        marginBottom: 5,
-    },
-    editButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#0056b3', 
-        paddingHorizontal: 15,
-        paddingVertical: 8,
-        borderRadius: 20,
-    },
-    editButtonText: {
-        color: '#fff',
-        fontSize: 14,
-        marginLeft: 5,
-    },
-    infoSection: {
-        backgroundColor: '#fff',
-        marginHorizontal: 20,
+        fontWeight: "bold",
         marginBottom: 20,
-        borderRadius: 10,
-        padding: 15,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 3,
-    },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#343a40',
-        marginBottom: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: '#e0e0e0',
-        paddingBottom: 5,
-    },
-    infoItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-    infoIcon: {
-        marginRight: 10,
-        color: '#555',
-    },
-    infoText: {
-        fontSize: 16,
-        color: '#333',
-    },
-    actionButton: {
-        backgroundColor: '#28a745',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        paddingVertical: 15,
-        borderRadius: 10,
-        marginHorizontal: 20,
-        marginTop: 10,
-        shadowColor: '#28a745',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
-    },
-    actionButtonIcon: {
-        marginRight: 10,
-    },
-    actionButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    logoutButton: {
-        marginHorizontal: 20,
-        marginTop: 20,
-        backgroundColor: '#dc3545',
     },
     ContainerPerfil: {
         width: "80%",
@@ -309,6 +146,11 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 4,
+    },
+    profileText: {
+        fontSize: 18,
+        marginBottom: 10,
+        color: "#333",
     },
     errorText: {
         fontSize: 16,
