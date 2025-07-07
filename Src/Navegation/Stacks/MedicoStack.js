@@ -1,6 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import ListarMedico from "../../../Screen/Medicos/ListarMedico";
 import DetalleMedico from "../../../Screen/Medicos/DetalleMedico";
+import EditarMedico from "../../../Screen/Medicos/EditarMedicos";
+
 
 
 const Stack = createStackNavigator();
@@ -20,7 +22,7 @@ export default function MedicoStack() {
             />
             <Stack.Screen
                 name="EditarMedico"
-                component={DetalleMedico}
+                component={EditarMedico}
                 options={{ title: "Nuevo/Editar Médico" }}
             />
         </Stack.Navigator>
