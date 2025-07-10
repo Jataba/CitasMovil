@@ -1,13 +1,74 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Picker } from '@react-native-picker/picker';
 
-export default function CitaCard({ cita, onEdit, onDelete }) {
+
+export default function CitaCard({ cita, medicos, consultorios, pacientes = [],
+    onEdit, onDelete, onChangeMedico, onChangePaciente, onChangeConsultorio, editable = false }) {
     return (
         <View style={styles.card}>
             <View style={styles.info}>
-                <Text style={styles.nombre}>{actividad.nombre}</Text>
-                <Text style={styles.detalle}>Fecha:{actividad.fecha}</Text>
-                <Text style={styles.detalle}>Total Recaudo{actividad.total}</Text>
+                <Text style={styles.nombre}>{cita.nombreMedico ? cita.nombreMedico : 'Sin nombre de médico'}</Text>
+                <Text style={styles.detalle}>Paciente: {cita.nombrePaciente ? cita.nombrePaciente : 'Sin nombre de paciente'}</Text>
+                <Text style={styles.detalle}>Consultorio: {cita.nombreConsultorio ? cita.nombreConsultorio : 'Sin nombre de consultorio'}</Text>
+                <Text style={styles.detalle}>Hora: {cita.hora}</Text>
+                <Text style={styles.detalle}>Fecha: {cita.fecha}</Text>
+                <Text style={styles.detalle}>Motivo: {cita.motivo}</Text>
+
+                {editable ? (
+                    <Picker
+                        selectedValue={cita.idMedico}
+                        onValueChange={(value) => onChangeMedico && onChangeMedico(value)}
+                        enabled={editable}
+                        style={styles.picker
+                        }>
+                        {medicos.map((medico) => (
+                            <Picker.Item
+                                key={medico.id}
+                                label={`${medico.nombre} (${medico.especialidad})`}
+                                value={medico.id}
+                            />
+                        ))} 
+                    </Picker>
+                ) : (
+                    <Text></Text>
+                ) }
+
+                {editable ? (
+                    <Picker
+                        selectedValue={cita.idPaciente}
+                        onValueChange={(value) => onChangePaciente && onChangePaciente(value)}
+                        enabled={editable}
+                        style={styles.picker}>
+                        {pacientes.map((paciente) => (
+                            <Picker.Item
+                                key={paciente.id}
+                                label={`${paciente.nombre} (${paciente.documento})`}
+                                value={paciente.id}
+                            />
+                        ))}
+                    </Picker>
+                ) : (
+                    <Text></Text>
+                )}
+
+                {editable ? (
+                    <Picker
+                        selectedValue={cita.idConsultorio}
+                        onValueChange={(value) => onChangeConsultorio && onChangeConsultorio(value)}
+                        enabled={editable}
+                        style={styles.picker}>
+                        {consultorios.map((consultorio) => (
+                            <Picker.Item
+                                key={consultorio.id}
+                                label={`${consultorio.nombre} (${consultorio.ubicacion})`}
+                                value={consultorio.id}
+                            />
+                        ))}
+                    </Picker>
+                ) : (
+                    <Text></Text>
+                )}
             </View>
             <View style={styles.actions}>
                 <TouchableOpacity onPress={onEdit} style={styles.iconBtn}>
@@ -40,12 +101,24 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     nombre: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
+        color: '#000',
     },
     detalle: {
         fontSize: 14,
         color: '#555',
+    },
+    pickerContainer: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 6,
+        marginTop: 5,
+        backgroundColor: '#fff',
+    },
+    picker: {
+        height: 40,
+        width: '100%',
     },
     actions: {
         flexDirection: 'row',

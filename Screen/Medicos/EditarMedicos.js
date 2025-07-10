@@ -1,4 +1,7 @@
-import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ActivityIndicator } from "react-native"    
+import {View, Text, TextInput, StyleSheet, 
+    TouchableOpacity, Alert, ActivityIndicator, 
+    KeyboardAvoidingView,ScrollView,Platform, Keyboard,
+    TouchableWithoutFeedback } from "react-native"    
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { crearMedicos, editarMedico } from "../../Src/Servicios/MedicoService";
@@ -46,7 +49,17 @@ export default function EditarMedico() {
     }
 
     return (
-        <View style={styles.container}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
+        >
+            <ScrollView
+                contentContainerStyle={styles.scrollContainer}
+                keyboardShouldPersistTaps="handled"
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
             <Text style={styles.title}>{esEdicion ? "Editar medico" : "Nuevo medico"}</Text>
             <TextInput
                 style={styles.input}
@@ -95,6 +108,9 @@ export default function EditarMedico() {
                 )}
             </TouchableOpacity>      
         </View>
+                </TouchableWithoutFeedback>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
@@ -103,6 +119,10 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         backgroundColor: "#f5f5f5",
+    },
+    scrollContainer: {
+        padding: 20,
+        paddingBottom: 200, // Espacio extra para el teclado
     },
     title: {
         fontSize: 24,

@@ -9,71 +9,71 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import {
-    listarHorarios,
-    eliminarHorario,
-    editarHorario,
-} from "../../Src/Servicios/HorarioService";
+import { listarHorarios, eliminarHorario } from "../../Src/Servicios/HorarioService";
 import { listarMedicos } from "../../Src/Servicios/MedicoService";
 import HorarioCard from "../../components/HorarioCard";
 
 export default function ListarHorario() {
     const [horarios, setHorarios] = useState([]);
+    const [medicos, setMedicos] = useState([]); // Estado para almacenar los médicos
     const [loading, setLoading] = useState(true);
     const navigation = useNavigation();
 
-    const cargarDatos = async () => {
+    const handleHorarios = async () => {
         setLoading(true);
         try {
             const [resultHorarios, resultMedicos] = await Promise.all([
                 listarHorarios(),
-                listarMedicos(),
+                listarMedicos(), // Obtener médicos
             ]);
 
             if (resultHorarios.success && resultMedicos.success) {
+                // Asignar los médicos a un estado
+                setMedicos(resultMedicos.data);
+
+                // Mapear horarios con el nombre del médico
                 const horariosConNombre = resultHorarios.data.map((horario) => {
                     const medico = resultMedicos.data.find((m) => m.id === horario.idMedico);
                     return {
                         ...horario,
-                        nombreMedico: medico ? medico.nombre : "Médico no encontrado",
+                        nombreMedico: medico ? `${medico.nombre} (${medico.especialidad})` : "Médico no asignado",
                     };
                 });
 
                 setHorarios(horariosConNombre);
             } else {
-                Alert.alert("Error", "No se pudieron cargar los datos correctamente.");
+                Alert.alert("Error", "No se pudieron cargar los datos.");
             }
         } catch (error) {
-            Alert.alert("Error", "Ocurrió un error al cargar los horarios.");
+            Alert.alert("Error", "Error al cargar horarios o médicos.");
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        const unsubscribe = navigation.addListener("focus", cargarDatos);
+        const unsubscribe = navigation.addListener("focus", handleHorarios);
         return unsubscribe;
     }, [navigation]);
 
     const handleEliminar = (id) => {
         Alert.alert(
             "Eliminar horario",
-            "¿Estás seguro que deseas eliminar el horario?",
+            "¿Estás seguro?",
             [
                 { text: "Cancelar", style: "cancel" },
                 {
                     text: "Eliminar",
-                    style: "destructive",
                     onPress: async () => {
                         try {
                             const result = await eliminarHorario(id);
                             if (result.success) {
-                                cargarDatos();
+                                handleHorarios();
                             } else {
-                                Alert.alert("Error", result.message || "No se pudo eliminar el horario");
+                                Alert.alert("Error", result.message || "Error al eliminar.");
                             }
                         } catch (error) {
-                            Alert.alert("Error", "No se pudo eliminar el horario");
+                            Alert.alert("Error", "No se pudo eliminar.");
                         }
                     },
                 },
@@ -87,26 +87,6 @@ export default function ListarHorario() {
 
     const handleCrear = () => {
         navigation.navigate("EditarHorario");
-    };
-
-    const actualizarMedicoEnHorario = async (horarioId, nuevoIdMedico) => {
-        const horario = horarios.find((h) => h.id === horarioId);
-        if (!horario) return;
-
-        try {
-            const result = await editarHorario(horarioId, {
-                ...horario,
-                idMedico: nuevoIdMedico,
-            });
-
-            if (result.success) {
-                cargarDatos(); // Refresca la lista
-            } else {
-                Alert.alert("Error", result.message || "No se pudo actualizar el médico");
-            }
-        } catch (error) {
-            Alert.alert("Error", "No se pudo actualizar el médico");
-        }
     };
 
     if (loading) {
@@ -125,11 +105,12 @@ export default function ListarHorario() {
                 renderItem={({ item }) => (
                     <HorarioCard
                         horario={item}
+                        medicos={medicos} // Pasar la lista de médicos
                         onEdit={() => handleEditar(item)}
                         onDelete={() => handleEliminar(item.id)}
                     />
                 )}
-                ListEmptyComponent={<Text style={styles.emptyText}>No hay horarios registrados.</Text>}
+                ListEmptyComponent={<Text style={styles.emptyText}>No hay horarios.</Text>}
                 contentContainerStyle={{ padding: 16 }}
             />
             <TouchableOpacity style={styles.botonCrear} onPress={handleCrear}>

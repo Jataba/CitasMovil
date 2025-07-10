@@ -6,6 +6,7 @@ export default function HorarioCard({ horario, medicos = [], onEdit, onDelete, o
     return (
         <View style={styles.card}>
             <View style={styles.info}>
+                <Text style={styles.nombre}>{horario.nombreMedico ? horario.nombreMedico : 'Sin nombre de médico'}</Text>
                 <Text style={styles.detalle}>Día: {horario.dia_semana}</Text>
                 <Text style={styles.detalle}>Hora inicio: {horario.hora_inicio}</Text>
                 <Text style={styles.detalle}>Hora fin: {horario.hora_fin}</Text>
@@ -28,10 +29,7 @@ export default function HorarioCard({ horario, medicos = [], onEdit, onDelete, o
                         </Picker>
                     </View>
                 ) : (
-                    <Text style={styles.nombre}>
-  {horario.nombreMedico ? horario.nombreMedico : 'Sin nombre de médico'}
-</Text>
-
+                    <Text></Text>
                 )}
             </View>
 
