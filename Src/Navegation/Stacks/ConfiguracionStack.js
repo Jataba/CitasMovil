@@ -11,7 +11,7 @@ export default function ConfiguracionStack () {
             <Stack.Screen 
                 name= "Configuracion"
                 component={Configuracion}
-                options={{ title: "Configuracion" }}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     );

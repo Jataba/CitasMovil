@@ -42,12 +42,14 @@ export const LogoutUser = async () => {
     }
 };
 
-export const registerUser = async (name, email, rol, password) => {
+export const registerUser = async (name, email, rol, telefono, direccion, password) => {
     try {
         const response = await api.post('/registrar', {
             name,
             email,
             rol,
+            telefono,
+            direccion,
             password
         });
         const { token } = response.data;
@@ -68,3 +70,18 @@ export const registerUser = async (name, email, rol, password) => {
         };
     }
 }
+export const actualizarPerfil = async (data) => {
+    try {
+        const response = await api.put('/actualizarPerfil', data);
+        return {
+            success: true,
+            data: response.data,
+        };
+    } catch (error) {
+        console.error("Error al actualizar perfil:", error.response?.data || error.message);
+        return {
+            success: false,
+            message: error.response?.data?.message || "Error al conectar con el servidor",
+        };
+    }
+};
