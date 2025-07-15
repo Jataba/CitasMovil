@@ -13,6 +13,15 @@ import { listarHorarios, eliminarHorario } from "../../Src/Servicios/HorarioServ
 import { listarMedicos } from "../../Src/Servicios/MedicoService";
 import HorarioCard from "../../components/HorarioCard";
 
+
+/**
+ * Pantalla para listar y gestionar horarios médicos.
+ * 
+ * Funcionalidades:
+ * - Carga y muestra lista de horarios con nombres de médicos
+ * - Permite crear, editar y eliminar horarios
+ * - Muestra estado de carga
+ */
 export default function ListarHorario() {
     const [horarios, setHorarios] = useState([]);
     const [medicos, setMedicos] = useState([]); // Estado para almacenar los médicos

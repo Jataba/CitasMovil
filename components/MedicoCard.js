@@ -1,6 +1,9 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+/**
+ * Componente que muestra/edita un medico con sus acciones.
+ */
 export default function MedicoCard({ medico, onEdit, onDelete }) {
     return (
         <View style={styles.card}>

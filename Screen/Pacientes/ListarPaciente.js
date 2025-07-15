@@ -4,6 +4,16 @@ import PacienteCard from "../../components/PacienteCard";
 import { useNavigation } from "@react-navigation/native";
 import {listarPacientes,eliminarPaciente,} from "../../Src/Servicios/PacienteService";
 
+
+/**
+ * Pantalla para listar y gestionar pacientes.
+ * 
+ * Funcionalidades:
+ * - Muestra lista de pacientes registrados
+ * - Permite crear, editar y eliminar pacientes
+ * - Actualización automática al enfocar la pantalla
+ * - Manejo de estados de carga
+ */
 export default function ListarPaciente() {
 const [paciente, setPacientes] = useState([]);
 const [loading, setLoading] = useState(true);

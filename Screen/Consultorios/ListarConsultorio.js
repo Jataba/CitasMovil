@@ -4,6 +4,15 @@ import ConsultorioCard from "../../components/ConsultorioCard";
 import { useNavigation } from "@react-navigation/native";
 import {listarConsultorios,eliminarConsultorio,} from "../../Src/Servicios/ConsultorioService";
 
+
+/**
+ * Pantalla para listar y gestionar consultorios médicos.
+ * 
+ * Funcionalidades:
+ * - Carga y muestra lista de consultorios
+ * - Permite crear, editar y eliminar consultorios
+ * - Manejo de estados de carga
+ */
 export default function ListarConsultorio() {
 const [consultorio, setConsultorios] = useState([]);
 const [loading, setLoading] = useState(true);

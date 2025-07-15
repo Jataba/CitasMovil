@@ -13,6 +13,15 @@ import { useState, useRef } from "react";
 import { loginUser } from "../../Src/Servicios/AuthService";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+
+/**
+ * Pantalla de inicio de sesión con autenticación y animaciones.
+ * 
+ * Funcionalidades:
+ * - Campos para email y contraseña con validación
+ * - Animación al pulsar el botón de login
+ * - Redirección a pantalla de registro
+ */
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

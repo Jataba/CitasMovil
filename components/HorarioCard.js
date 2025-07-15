@@ -2,6 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 
+/**
+ * Componente que muestra/edita un horario médico con sus acciones.
+ * Muestra el nombre del médico, día de la semana, hora de inicio y fin.
+ * En modo editable (editable=true) muestra Pickers para seleccionar médico
+ */
 export default function HorarioCard({ horario, medicos = [], onEdit, onDelete, onChangeMedico, editable = false }) {
     return (
         <View style={styles.card}>

@@ -1,5 +1,13 @@
 import api from "./conexion";
 
+/**
+ * Función para listar pacientes
+ * 
+ * Funcionalidades:
+ * - Obtiene lista completa de pacientes
+ * - Maneja errores de conexión
+ * - Devuelve datos o mensaje de error
+ */
 export const listarPacientes = async () => {
     try {
         const response = await api.get('/listarPacientes');
@@ -15,6 +23,14 @@ export const listarPacientes = async () => {
     }
 };
 
+/**
+ * Función para eliminar paciente
+ * 
+ * Funcionalidades:
+ * - Elimina paciente por ID
+ * - Maneja errores de servidor/conexión
+ * - Retorna estado de operación
+ */
 export const eliminarPaciente = async (id) => {
     try {
         await api.delete(`/eliminarPacientes/${id}`);
@@ -29,6 +45,15 @@ export const eliminarPaciente = async (id) => {
     }
 };
 
+/**
+ * Función para crear paciente
+ * 
+ * Funcionalidades:
+ * - Registra nuevo paciente
+ * - Valida datos requeridos
+ * - Maneja errores de validación/conexión
+ * - Retorna datos del paciente creado
+ */
 export const crearPaciente = async (data) => {
     try {
         const response = await api.post('/crearPacientes', data);
@@ -44,6 +69,15 @@ export const crearPaciente = async (data) => {
     }
 };
 
+/**
+ * Función para editar paciente
+ * 
+ * Funcionalidades:
+ * - Actualiza datos de paciente por ID
+ * - Permite modificación parcial
+ * - Maneja errores de validación/conexión
+ * - Retorna datos actualizados
+ */
 export const editarPaciente = async (id, data) => {
     try {
         const response = await api.put(`/editarPacientes/${id}`, data);

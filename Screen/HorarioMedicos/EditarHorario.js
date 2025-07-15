@@ -8,6 +8,15 @@ import { useState, useEffect } from "react";
 import { crearHorario, editarHorario } from "../../Src/Servicios/HorarioService";
 import { listarMedicos } from "../../Src/Servicios/MedicoService";
 
+
+/**
+ * Pantalla para crear/editar horarios médicos con validación de campos.
+ * 
+ * Funcionalidades:
+ * - Formulario para crear nuevos horarios o editar existentes
+ * - Selector de médicos (solo en creación)
+ * - Validación de campos obligatorios
+ */
 export default function EditarHorario() {
     const navigation = useNavigation();
     const route = useRoute();

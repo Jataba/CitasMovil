@@ -12,6 +12,16 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { actualizarPerfil } from "../../Src/Servicios/AuthService"; // servicio externo
 
+
+/**
+ * Pantalla para editar perfil de usuario
+ * 
+ * Funcionalidades:
+ * - Permite editar información personal (nombre, email, teléfono, dirección)
+ * - Soporta cambio de imagen de perfil (desde galería)
+ * - Valida y envía actualizaciones al servidor
+ * - Maneja respuesta del servidor y navegación
+ */
 export default function EditarPerfil({ route, navigation }) {
   const { user } = route.params;
 

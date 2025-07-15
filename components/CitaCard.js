@@ -2,7 +2,13 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Picker } from '@react-native-picker/picker';
 
-
+/**
+ * Componente que muestra/edita una cita médica.
+ * 
+ * - Muestra información de médico, paciente, consultorio, hora, fecha y motivo
+ * - En modo editable (editable=true) muestra Pickers para seleccionar médico, paciente y consultorio
+ * - Incluye botones para editar y eliminar la cita
+ */
 export default function CitaCard({ cita, medicos, consultorios, pacientes = [],
     onEdit, onDelete, onChangeMedico, onChangePaciente, onChangeConsultorio, editable = false }) {
     return (

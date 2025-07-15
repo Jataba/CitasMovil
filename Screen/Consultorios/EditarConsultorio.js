@@ -6,6 +6,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { crearConsultorio, editarConsultorio } from "../../Src/Servicios/ConsultorioService";
 
+
+/**
+ * Pantalla para crear/editar consultorios médicos.
+ * 
+ * Funcionalidades:
+ * - Formulario para crear nuevos consultorios o editar existentes
+ * - Validación de campos obligatorios (nombre y ubicación)
+ * - Manejo de estados de carga
+ */
 export default function EditarConsultorio() {
     const navigation = useNavigation();
     const route = useRoute();

@@ -15,6 +15,16 @@ import { listarPacientes } from "../../Src/Servicios/PacienteService";
 import { listarConsultorios } from "../../Src/Servicios/ConsultorioService";
 import CitaCard from "../../components/CitaCard";
 
+
+/**
+ * Pantalla para listar y gestionar citas médicas.
+ * 
+ * Funcionalidades:
+ * - Carga y muestra lista de citas con datos completos (médico, paciente, consultorio)
+ * - Permite crear, editar y eliminar citas
+ * - Actualización automática al enfocar la pantalla
+ * - Manejo de estados de carga
+ */
 export default function ListarCitas() {
     const [citas, setCitas] = useState([]);
     const [medicos, setMedicos] = useState([]);
@@ -134,7 +144,7 @@ export default function ListarCitas() {
     );
 }
 
-// Estilos idénticos a ListarHorario
+
 const styles = StyleSheet.create({
     centered: {
         flex: 1,

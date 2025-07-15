@@ -1,6 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "./conexion";
 
+/**
+ * Función para autenticar usuarios en el sistema
+ * 
+ * Funcionalidades:
+ * - Envía credenciales (email y contraseña) al servidor para autenticación
+ * - Almacena el token de autenticación recibido en AsyncStorage
+ * - Maneja respuestas exitosas y errores del servidor
+ * - Proporciona feedback claro en caso de errores (validación o conexión)
+ */
 export const loginUser = async (email, password) => {
     try {
         const response = await api.post('/login', { email, password });
@@ -23,6 +32,15 @@ export const loginUser = async (email, password) => {
     }
 };
 
+/**
+ * Función para cerrar sesión de usuario en el sistema
+ * 
+ * Funcionalidades:
+ * - Realiza una petición al servidor para invalidar la sesión actual
+ * - Elimina el token de autenticación almacenado en AsyncStorage
+ * - Maneja tanto el cierre de sesión exitoso como posibles errores
+ * - Proporciona feedback claro en caso de errores (conexión o del servidor)
+ */
 export const LogoutUser = async () => {
     try {
         await api.get('/cerrar');
@@ -42,6 +60,15 @@ export const LogoutUser = async () => {
     }
 };
 
+/**
+ * Función para registrar nuevos usuarios en el sistema
+ * 
+ * Funcionalidades:
+ * - Envía los datos del usuario (nombre, email, rol, teléfono, dirección y contraseña) al servidor
+ * - Almacena automáticamente el token de autenticación recibido en AsyncStorage
+ * - Maneja el registro exitoso y posibles errores de validación o conexión
+ * - Proporciona feedback detallado en caso de errores
+ */
 export const registerUser = async (name, email, rol, telefono, direccion, password) => {
     try {
         const response = await api.post('/registrar', {
@@ -70,6 +97,16 @@ export const registerUser = async (name, email, rol, telefono, direccion, passwo
         };
     }
 }
+
+/**
+ * Función para actualizar la información del perfil de usuario
+ * 
+ * Funcionalidades:
+ * - Envía los datos actualizados del usuario al servidor
+ * - Maneja la respuesta exitosa del servidor con los nuevos datos del perfil
+ * - Gestiona errores de conexión o validación del servidor
+ * - Proporciona mensajes de error claros para facilitar la depuración
+ */
 export const actualizarPerfil = async (data) => {
     try {
         const response = await api.put('/actualizarPerfil', data);

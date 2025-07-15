@@ -10,6 +10,15 @@ import { listarConsultorios } from "../../Src/Servicios/ConsultorioService";
 import { crearCita, editarCita } from "../../Src/Servicios/CitaService";
 import { listarMedicos } from "../../Src/Servicios/MedicoService";
 
+
+/**
+ * Pantalla para crear/editar citas médicas con gestión completa de relaciones.
+ * 
+ * Funcionalidades:
+ * - Formulario para crear/editar citas con todos los campos requeridos
+ * - Selectores para médico, paciente y consultorio (solo en creación)
+ * - Validación de campos obligatorios
+ */
 export default function EditarCita() {
     const navigation = useNavigation();
     const route = useRoute();

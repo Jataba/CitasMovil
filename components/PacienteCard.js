@@ -1,6 +1,10 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+
+/**
+ * Componente que muestra/edita un paciente con sus acciones.
+ */
 export default function PacienteCard({ paciente, onEdit, onDelete }) {
     return (
         <View style={styles.card}>

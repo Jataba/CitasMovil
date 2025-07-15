@@ -6,6 +6,15 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { crearPaciente, editarPaciente } from "../../Src/Servicios/PacienteService";
 
+/**
+ * Pantalla para crear/editar información de pacientes.
+ * 
+ * Funcionalidades:
+ * - Formulario completo con datos personales y médicos
+ * - Validación de campos obligatorios
+ * - Soporta creación y edición en un mismo componente
+ * - Adaptación para teclado en dispositivos móviles
+ */
 
 export default function EditarPaciente() {
     const navigation = useNavigation();

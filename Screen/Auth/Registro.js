@@ -3,6 +3,17 @@ import { useState, useRef } from "react";
 import { registerUser } from "../../Src/Servicios/AuthService";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+
+/**
+ * Pantalla de registro de usuario con validación de campos.
+ * 
+ * Funcionalidades:
+ * - Formulario con campos: nombre, email, rol, teléfono, dirección y contraseña
+ * - Validación de contraseña y confirmación
+ * - Animación al pulsar el botón de registro
+ * - Redirección a pantalla de login
+ * - Teclado adaptable
+ */
 export default function RegistroScreen({ navigation }) {
     const scheme = useColorScheme(); // Detecta si es oscuro o claro
     const darkMode = scheme === "dark";

@@ -1,6 +1,9 @@
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
+/**
+ * Componente que muestra un consultorio con acciones de edición y eliminación.
+ */
 export default function ConsultorioCard({ consultorio, onEdit, onDelete }) {
     return (
         <View style={styles.card}>

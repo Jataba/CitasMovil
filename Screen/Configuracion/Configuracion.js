@@ -12,6 +12,20 @@ import { useNavigation } from '@react-navigation/native';
 import BottonComponent from '../../components/BottonComponent';
 import { LogoutUser } from '../../Src/Servicios/AuthService';
 
+/**
+ * Pantalla de configuración de la aplicación con opciones de usuario.
+ * 
+ * Funcionalidades:
+ * - Menú de configuración organizado en secciones
+ * - Confirmación de cierre de sesión con alerta
+ * - Acceso rápido a diferentes opciones de configuración
+ * 
+ * Componentes principales:
+ * - Sección de Cuenta (ej: cambiar contraseña)
+ * - Sección de Preferencias (ej: idioma)
+ * - Sección de Ayuda (ej: soporte)
+ * - Botón de cierre de sesión con confirmación
+ */
 export default function Configuracion() {
   const navigation = useNavigation();
 

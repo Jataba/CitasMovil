@@ -4,6 +4,16 @@ import MedicoCard from "../../components/MedicoCard";
 import { useNavigation } from "@react-navigation/native";
 import {listarMedicos,eliminarMedico,} from "../../Src/Servicios/MedicoService";
 
+
+/**
+ * Pantalla para listar y gestionar médicos.
+ * 
+ * Funcionalidades:
+ * - Carga y muestra lista de médicos registrados
+ * - Permite crear, editar y eliminar médicos
+ * - Actualización automática al volver a la pantalla
+ * - Manejo de estados de carga
+ */
 export default function ListarMedico() {
 const [medico, setMedicos] = useState([]);
 const [loading, setLoading] = useState(true);

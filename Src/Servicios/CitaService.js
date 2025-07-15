@@ -1,5 +1,14 @@
 import api from "./conexion";
 
+/**
+ * Función para obtener el listado de citas del usuario
+ * 
+ * Funcionalidades:
+ * - Realiza una petición al servidor para obtener todas las citas del usuario autenticado
+ * - Devuelve los datos de las citas en formato estructurado
+ * - Maneja posibles errores de conexión o del servidor
+ * - Proporciona feedback claro en caso de errores
+ */
 export const listarCitas = async () => {
     try {
         const response = await api.get('/listarCitas');
@@ -14,7 +23,15 @@ export const listarCitas = async () => {
         };
     }
 };
-
+/**
+ * Función para eliminar una cita específica del sistema
+ * 
+ * Funcionalidades:
+ * - Envía una solicitud al servidor para eliminar una cita mediante su ID
+ * - Maneja la respuesta exitosa de eliminación
+ * - Gestiona errores de conexión o validación del servidor
+ * - Proporciona mensajes de error específicos para facilitar el diagnóstico
+ */
 export const eliminarCita = async (id) => {
     try {
         await api.delete(`/eliminarCitas/${id}`);
@@ -29,6 +46,15 @@ export const eliminarCita = async (id) => {
     }
 };
 
+/**
+ * Función para crear una nueva cita en el sistema
+ * 
+ * Funcionalidades:
+ * - Registra una nueva cita con todos los datos requeridos
+ * - Maneja la respuesta exitosa devolviendo los datos de la cita creada
+ * - Gestiona errores de validación y conexión con el servidor
+ * - Proporciona mensajes de error claros para facilitar la corrección
+ */
 export const crearCita = async (data) => {
     try {
         const response = await api.post('/crearCitas', data);
@@ -44,6 +70,15 @@ export const crearCita = async (data) => {
     }
 };
 
+/**
+ * Función para actualizar los datos de una cita existente
+ * 
+ * Funcionalidades:
+ * - Actualiza una cita específica identificada por su ID
+ * - Permite modificar parcial o totalmente la información de la cita
+ * - Maneja correctamente las respuestas exitosas y los errores
+ * - Proporciona retroalimentación detallada en caso de fallos
+ */
 export const editarCita = async (id, data) => {
     try {
         const response = await api.put(`/editarCitas/${id}`, data);

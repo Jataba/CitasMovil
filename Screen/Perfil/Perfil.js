@@ -5,12 +5,22 @@ import BottonComponent from "../../components/BottonComponent";
 import api from "../../Src/Servicios/conexion";
 import { useNavigation } from "@react-navigation/native";
 
+
+/**
+ * Pantalla de Perfil de Usuario
+ * 
+ * Funcionalidades:
+ * - Muestra información detallada del usuario logueado
+ * - Incluye foto de perfil, datos personales y rol
+ * - Permite editar el perfil
+ * - Maneja estados de carga y errores
+ */
 export default function Perfil() {
   const [usuario, setUsuario] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
 
-  const BASE_URL = "http://172.30.1.139:8000"; // Ajusta si cambia tu IP
+  const BASE_URL = "http://172.30.1.139:8000";
 
   const cargarPerfil = async () => {
     try {

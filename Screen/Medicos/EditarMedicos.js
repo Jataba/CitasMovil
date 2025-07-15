@@ -6,7 +6,14 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import { crearMedicos, editarMedico } from "../../Src/Servicios/MedicoService";
 
-
+/**
+ * Pantalla para crear/editar información de médicos.
+ * 
+ * Funcionalidades:
+ * - Formulario completo con todos los datos médicos
+ * - Valida campos obligatorios antes de guardar
+ * - Soporta creación y edición en un mismo componente
+ */
 export default function EditarMedico() {
     const navigation = useNavigation();
     const route = useRoute();
