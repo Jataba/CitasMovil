@@ -2,6 +2,8 @@ import {View,Text,TextInput,StyleSheet,Alert,useColorScheme,Pressable,Animated,K
 import { useState, useRef } from "react";
 import { registerUser } from "../../Src/Servicios/AuthService";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Picker } from "@react-native-picker/picker";
+
 
 
 /**
@@ -102,12 +104,22 @@ export default function RegistroScreen({ navigation }) {
 
                                 {renderInput("Nombre Completo", name, setName, "person-outline")}
                                 {renderInput("Correo Electrónico", email, setEmail, "mail-outline", false, "email-address")}
-                                {renderInput("Rol", rol, setRol, "briefcase-outline")}
                                 {renderInput("Teléfono", telefono, setTelefono, "call-outline", false, "phone-pad")}
                                 {renderInput("Dirección", direccion, setDireccion, "location-outline")}
                                 {renderInput("Contraseña", password, setPassword, "lock-closed-outline", true)}
                                 {renderInput("Confirmar Contraseña", confirmarPassword, setConfirmarPassword, "lock-closed-outline", true)}
-
+                                <View style={styles.pickerContainer}>
+                                <Picker
+                                    selectedValue={rol}
+                                    onValueChange={(itemValue) => setRol(itemValue)}
+                                    style={styles.picker}
+                                >
+                                    <Picker.Item label="Selecciona un rol" value="" />
+                                    <Picker.Item label="recepcionista" value="recepcionista" />
+                                    <Picker.Item label="admin" value="admin"/>
+                                    <Picker.Item label="doctor" value="doctor" />
+                                </Picker>
+                            </View>
                                 <Animated.View style={{ transform: [{ scale: scaleAnim }] }}>
                                     <Pressable onPress={handleRegister} disabled={loading} style={styles.animatedButton}>
                                         <Text style={styles.animatedButtonText}>Registrarse</Text>
@@ -198,5 +210,13 @@ const styles = StyleSheet.create({
     },
     loginTextDark: {
         color: "#90caff",
+    },
+    pickerContainer: {
+        backgroundColor: "#fff",
+        borderRadius: 10,
+        marginBottom: 15,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        paddingHorizontal: 10,
     },
 });
